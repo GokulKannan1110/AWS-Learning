@@ -1,0 +1,30 @@
+Who are you?
+      ↓
+Authentication
+      ↓
+What can you do?
+      ↓
+Authorization
+      ↓
+IAM Policies Evaluated
+      ↓
+Allow / Deny
+      ↓
+AWS Service Access
+
+
+1. Users
+
+Represents a person or application.
+
+Examples:
+
+John
+Alice
+Jenkins
+
+A user has:
+
+Username
+Password
+Access Keys

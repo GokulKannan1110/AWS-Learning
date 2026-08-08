@@ -1,0 +1,128 @@
+IAM (Identity and Access Management) is the AWS service that helps you
+
+Create users
+Manage permissions
+Control access to AWS resources
+Decide who can do what
+
+"Who are you and what are you allowed to do?"
+
+
+Imagine a company office.
+
+People:
+
+CEO
+HR
+Developers
+Security Team
+Interns
+
+Resources:
+
+Server Room
+HR Files
+Finance Records
+Meeting Rooms
+
+
+Purpose of IAM
+
+The primary purpose of IAM is:
+
+1. Authentication
+
+Verifying identity.
+
+AWS asks:
+
+"Who are you?"
+
+Example:
+
+Username + Password
+Access Key + Secret Key
+MFA Device
+
+If identity is valid:
+
+✅ User is authenticated
+
+2. Authorization
+
+Determining permissions.
+
+AWS asks:
+
+"Now that I know who you are, what can you do?"
+
+Examples:
+
+Allowed:
+
+Read S3 Bucket
+Start EC2
+
+Not Allowed:
+
+Delete Production Database
+Modify IAM Users
+
+
+| Authentication        | Authorization           |
+| --------------------- | ----------------------- |
+| Who are you?          | What can you do?        |
+| Identity verification | Permission verification |
+| Login process         | Access control          |
+| Username/password     | IAM Policy              |
+| Happens first         | Happens second          |
+
+
+Shared Responsibility Model and IAM
+
+What is Shared Responsibility?
+
+AWS and Customer share security responsibilities.
+
+Think of renting an apartment.
+
+Landlord provides:
+
+Building
+Electricity
+Water
+
+Tenant manages:
+
+Locking doors
+Valuables
+Visitors
+
+
+Principle of Least Privilege:
+Grant only the minimum permissions needed.
+Give only the permissions needed to perform a task and nothing more.
+
+
+Global Service means:
+
+It is not tied to a specific AWS Region.
+
+Example:
+
+You create an IAM User in Mumbai.
+Immediately available in:
+
+Mumbai
+Singapore
+London
+Virginia
+
+
+
+Security Best Practices
+1. Never Use Root Account Daily
+2. MFA = Multi-Factor Authentication
+3. Use Roles Instead of Access Keys
+4. Rotate Credentials
+5. Regular Permission Reviews

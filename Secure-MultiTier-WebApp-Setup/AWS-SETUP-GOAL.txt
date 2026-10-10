@@ -1,0 +1,77 @@
+====================================================
+AWS PRACTICE ASSIGNMENT
+Build a Secure Multi-Tier Web App
+====================================================
+
+GOAL
+----
+Combine IAM, EC2, Networking, and DNS into one real project,
+using everything covered so far: IAM, EC2, ELB, NAT Gateway,
+VPC Peering, Transit Gateway, VPC Endpoint, VPC Flow Logs,
+DNS/Route 53, and WAF.
+
+
+TASK STEPS
+----------
+
+1. IAM SETUP
+   - Create an IAM user (do NOT use the root account) with a
+     custom policy granting least-privilege access to EC2, VPC,
+     and Route 53 only.
+   - Create a group, attach the policy, and add your user to it.
+   - Create an IAM role for EC2 that allows read access to an S3
+     bucket (no hardcoded credentials anywhere).
+
+2. NETWORKING FOUNDATION
+   - Create a VPC with one public subnet and one private subnet.
+   - Attach an Internet Gateway to the public subnet.
+   - Set up a NAT Gateway so the private subnet can reach the
+     internet outbound-only.
+   - Configure route tables correctly for both subnets.
+
+3. COMPUTE LAYER
+   - Launch an EC2 instance in the PUBLIC subnet - this will run
+     your app (Docker container).
+   - Launch a second EC2 instance in the PRIVATE subnet -
+     simulate a backend/db server with no public IP.
+   - Use the IAM role (not access keys) on the public instance to
+     pull something from S3.
+   - Connect to the private instance via the public instance
+     (bastion-style) using EC2 Instance Connect.
+
+4. TRAFFIC DISTRIBUTION
+   - Set up an Application Load Balancer in front of your public
+     EC2 instance.
+   - Configure a target group and health check.
+
+5. VISIBILITY & SECURITY
+   - Enable VPC Flow Logs at the subnet level and inspect traffic
+     between your two instances.
+   - Attach a WAF Web ACL to your ALB with at least one AWS
+     Managed Rule (e.g., block common SQL injection attempts).
+
+6. DNS
+   - Register/verify a domain in Route 53 (or use an existing
+     domain, pointed via a hosted zone).
+   - Create an A/Alias record pointing your domain to the ALB.
+
+
+SUCCESS CRITERIA
+-----------------
+[ ] You can hit your domain and reach the app running on EC2.
+[ ] The private instance has NO public IP but can still reach
+    the internet (via NAT).
+[ ] Flow Logs show traffic between public/private subnets.
+[ ] WAF blocks a basic malicious request (test with a simple
+    SQLi string in a query param).
+[ ] No AWS credentials are hardcoded anywhere - only IAM roles.
+
+
+
+Screenshots of below are attached in respective folders:
+  - IAM policy, group, and role JSON
+  - VPC + subnet + route table configuration
+  - Working ALB + domain access
+  - Flow Logs sample output
+  - WAF blocked request log
+

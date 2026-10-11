@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AWS Multi-Tier App</title>
+</head>
+
+<body>
+
+    <h1>AWS Multi-Tier Application</h1>
+
+    <h2>Messages from PostgreSQL</h2>
+
+    <div id="messages">
+        Loading...
+    </div>
+
+    <script>
+
+        fetch("http://YOUR_PUBLIC_EC2_IP:8000/messages")
+            .then(response => response.json())
+            .then(data => {
+
+                document.getElementById("messages").innerHTML =
+                    data.map(item =>
+                        `<p>${item.id}: ${item.message}</p>`
+                    ).join("");
+
+            })
+            .catch(error => {
+
+                document.getElementById("messages").innerText =
+                    "Failed to retrieve messages.";
+
+                console.error(error);
+
+            });
+
+    </script>
+
+</body>
+</html>
